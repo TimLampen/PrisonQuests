@@ -1,0 +1,6 @@
+main: me.timlampen.prisonquests.PQuests
+version: 1.0
+name: PQuests
+author: TimLampen
+commands:
+  pfishingrod:

@@ -1,0 +1,9 @@
+1:
+  name: "&7Test"
+  lore:
+  - "hi"
+  - "&atest"
+  time: 10
+  chance:
+  - "FISH,1,10"
+  - "STONE:2,1,90"
