@@ -18,13 +18,13 @@ public class PFishingRodCmd implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equals("pfishingrod")) {
             if(!sender.isOp()){
-                sender.sendMessage(Lang.PFISHING.f("&cYou do not have permission to use this command."));
+                sender.sendMessage(Lang.PRISONTECH.f("&cYou do not have permission to use this command."));
                 return false;
             }
             if(args.length==0 || args[0].equalsIgnoreCase("help")){
-                sender.sendMessage(Lang.PFISHING.f("&6Here are the avaliable sub-commands:"));
-                sender.sendMessage(Lang.PFISHING.f("&c/pfishingrod give <player> <id> &6- Gives the specified player the fishing rod."));
-                sender.sendMessage(Lang.PFISHING.f("&c/pfishingrod help &6- Views avaliable commands."));
+                sender.sendMessage(Lang.PRISONTECH.f("&6Here are the avaliable sub-commands:"));
+                sender.sendMessage(Lang.PRISONTECH.f("&c/pfishingrod give <player> <id> &6- Gives the specified player the fishing rod."));
+                sender.sendMessage(Lang.PRISONTECH.f("&c/pfishingrod help &6- Views avaliable commands."));
                 return false;
             }
 
@@ -51,13 +51,13 @@ public class PFishingRodCmd implements CommandExecutor {
 
                     Optional<PFishingRod> rod = PFishing.getInstance().getPFishingRod(id);
                     if(!rod.isPresent()) {
-                        sender.sendMessage(Lang.PFISHING.f("&cError: No fishing rod exists with that id."));
+                        sender.sendMessage(Lang.PRISONTECH.f("&cError: No fishing rod exists with that id."));
                         return false;
                     }
 
                     target.getInventory().addItem(rod.get().generate());
-                    target.sendMessage(Lang.PFISHING.f("&aYou have been given a custom fishing rod from " + sender.getName() + "."));
-                    sender.sendMessage(Lang.PFISHING.f("&aThe requested fishing rod has been sent to " + target.getName()) + ".");
+                    target.sendMessage(Lang.PRISONTECH.f("&aYou have been given a custom fishing rod from " + sender.getName() + "."));
+                    sender.sendMessage(Lang.PRISONTECH.f("&aThe requested fishing rod has been sent to " + target.getName()) + ".");
                     return true;
                 }
             }

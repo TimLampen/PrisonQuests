@@ -7,12 +7,10 @@ import org.bukkit.ChatColor;
  */
 public enum Lang {
 
-    PFISHING("&2[&6PrisonFishing&2]&r "),
-    NULL_PLAYER(PFISHING + "&cError: That player is not currently online."),
-    SYNTAX_ERROR(PFISHING + "&cSyntax Error: Please review your command arguments as they were incorrect."),
-    NULL_NUMBER(PFISHING + "&cNumber Error: the argument passed for an integer value was not a number.");
-
-    private String disp;
+    PRISONTECH("&2[&6PrisonTech&2]&r "),
+    NULL_PLAYER(PRISONTECH.toString() + "&cError: That player is not currently online."),
+    SYNTAX_ERROR(PRISONTECH.toString() + "&cSyntax Error: Please review your command arguments as they were incorrect."),
+    NULL_NUMBER(PRISONTECH.toString() + "&cNumber Error: the argument passed for an integer value was not a number.");
 
     private final String s;
 
@@ -26,7 +24,7 @@ public enum Lang {
     }
 
     public String f(String s){
-        return ChatColor.translateAlternateColorCodes('&', s);
+        return ChatColor.translateAlternateColorCodes('&', this.s + s);
     }
 
 }

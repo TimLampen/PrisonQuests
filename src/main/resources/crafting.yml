@@ -1,0 +1,17 @@
+'1':
+  dname: "&32x Cocaine"
+  dlore:
+  - "&aIngredients:"
+  - "1x Wood Plank"
+  - "3x Dirt"
+  ditem: "SUGAR,1"
+  materials:
+  - "WOOD:2,1"
+  - "DIRT,3"
+  product:
+    name: "&3Cocaine"
+    lore:
+    - "&aThis is cocaine"
+    item: "SUGAR,2"
+    commands:
+    - 'broadcast hello %player%'

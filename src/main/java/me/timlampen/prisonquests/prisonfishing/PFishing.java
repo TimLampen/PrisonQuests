@@ -4,23 +4,14 @@ import me.timlampen.prisonquests.Lang;
 import me.timlampen.prisonquests.Module;
 import me.timlampen.prisonquests.PQuests;
 import me.timlampen.prisonquests.prisonfishing.listeners.Fishing;
-import net.minecraft.server.v1_12_R1.EntityFishingHook;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
-import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -33,8 +24,10 @@ public class PFishing extends Module {
     private FileConfiguration config;
     private HashMap<UUID, Long> lastCast = new HashMap<>();
 
+    @Override
     public void onEnable() {
         instance = this;
+        this.config = PQuests.getInstance().getConfig("fishing.yml");
         loadConfig();
         Bukkit.getPluginManager().registerEvents(new Fishing(), PQuests.getInstance());
         PQuests.getInstance().getCommand("pfishingrod").setExecutor(new PFishingRodCmd());
@@ -70,6 +63,7 @@ public class PFishing extends Module {
         }.runTaskTimer(PQuests.getInstance(), 0, 20*5);
     }
 
+    @Override
     public void onDisable() {
 
     }
@@ -93,20 +87,6 @@ public class PFishing extends Module {
     }
 
     private void loadConfig(){
-        File file = new File(PQuests.getInstance().getDataFolder(), "fishing.yml");
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            PQuests.getInstance().saveResource("fishing.yml", false);
-        }
-
-        config = new YamlConfiguration();
-        try {
-            config.load(file);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-            return;
-        }
-
         for(String s : config.getConfigurationSection("").getKeys(false)) {
             int id = Integer.parseInt(s);
             String name = ChatColor.translateAlternateColorCodes('&', config.getString(s + ".name"));
@@ -120,17 +100,13 @@ public class PFishing extends Module {
 
             for(String sChance : config.getStringList(s + ".chances")){
                 String[] split = sChance.split(",");
-                ItemStack is;
-                if(split[0].contains(":"))
-                    is = new ItemStack(Material.getMaterial(split[0].split(":")[0]), Integer.parseInt(split[1]), Short.parseShort(split[0].split(":")[1]));
-                else
-                    is = new ItemStack(Material.getMaterial(split[0]), Integer.parseInt(split[1]));
+                ItemStack is = PQuests.deserializeItem(sChance);
                 chances.put(is, Integer.parseInt(split[2]));
                 totalChance += Integer.parseInt(split[2]);
             }
 
             if(totalChance!=100){
-                Bukkit.getConsoleSender().sendMessage(Lang.PFISHING.f("&cUnable to load fishing rod: " + id + " as total chance % != 100"));
+                Bukkit.getConsoleSender().sendMessage(Lang.PRISONTECH.f("&cUnable to load fishing rod: " + id + " as total chance % != 100"));
                 continue;
             }
 
@@ -164,27 +140,5 @@ public class PFishing extends Module {
             ItemStack rodItem = rod.generate();
             return is.getItemMeta().getDisplayName().equals(rodItem.getItemMeta().getDisplayName()) && is.getItemMeta().getLore().equals(rodItem.getItemMeta().getLore());
         }).findFirst();
-    }
-
-    public void setBiteTime(FishHook hook, int time) {
-        net.minecraft.server.v1_12_R1.EntityFishingHook hookCopy = (EntityFishingHook) ((CraftEntity) hook).getHandle();
-
-        Field fishCatchTime = null;
-
-        try {
-            fishCatchTime = net.minecraft.server.v1_12_R1.EntityFishingHook.class.getDeclaredField("aw");
-        } catch (NoSuchFieldException | SecurityException e) {
-            e.printStackTrace();
-        }
-
-        fishCatchTime.setAccessible(true);
-
-        try {
-            fishCatchTime.setInt(hookCopy, time);
-        } catch (IllegalArgumentException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        fishCatchTime.setAccessible(false);
     }
 }
