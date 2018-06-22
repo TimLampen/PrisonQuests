@@ -4,6 +4,7 @@ import me.timlampen.prisonquests.Lang;
 import me.timlampen.prisonquests.Module;
 import me.timlampen.prisonquests.PQuests;
 import me.timlampen.prisonquests.prisonfishing.listeners.Fishing;
+import me.timlampen.prisonquests.prisonfishing.listeners.Interact;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -30,34 +31,29 @@ public class PFishing extends Module {
         this.config = PQuests.getInstance().getConfig("fishing.yml");
         loadConfig();
         Bukkit.getPluginManager().registerEvents(new Fishing(), PQuests.getInstance());
+        Bukkit.getPluginManager().registerEvents(new Interact(), PQuests.getInstance());
         PQuests.getInstance().getCommand("pfishingrod").setExecutor(new PFishingRodCmd());
 
         new BukkitRunnable() {
             @Override
             public void run() {
-                HashMap<UUID, Long> copy = new HashMap<>();
-                copy.putAll(lastCast);
+                Iterator<Map.Entry<UUID, Long>> iter = lastCast.entrySet().iterator();
 
-                for(UUID uuid : copy.keySet()) {
-                    Player player = Bukkit.getPlayer(uuid);
+                while (iter.hasNext()) {
+                    Map.Entry<UUID, Long> entry = iter.next();
+                    Player player = Bukkit.getPlayer(entry.getKey());
                     if(player==null)
-                        lastCast.remove(uuid);
-
+                        iter.remove();
                     ItemStack is = player.getInventory().getItemInMainHand();
-                        Optional<PFishingRod> rod = getPFishingRod(is);
-                        if(rod.isPresent()) {
-                            if(lastCast.containsKey(player.getUniqueId()) && System.currentTimeMillis()-lastCast.get(player.getUniqueId()) >= rod.get().getTime()*1000) {
-                                lastCast.put(player.getUniqueId(), System.currentTimeMillis());
-                                new BukkitRunnable() {
-                                    @Override
-                                    public void run() {
-                                        awardFishingReward(player, rod.get());
-                                    }
-                                }.runTaskLater(PQuests.getInstance(), 2);
-                            }
+                    Optional<PFishingRod> rod = getPFishingRod(is);
+                    if(rod.isPresent()) {
+                        if(lastCast.containsKey(player.getUniqueId()) && System.currentTimeMillis()-lastCast.get(player.getUniqueId()) >= rod.get().getTime()*1000) {
+                            lastCast.put(player.getUniqueId(), System.currentTimeMillis());
+                            awardFishingReward(player, rod.get());
+                        }
                     }
                     else
-                        lastCast.remove(uuid);
+                        iter.remove();
                 }
             }
         }.runTaskTimer(PQuests.getInstance(), 0, 20*5);

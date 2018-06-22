@@ -56,6 +56,7 @@ public class PCraftingCmd implements CommandExecutor {
                     Optional<PCraftingItem> optItem = PCrafting.getInstance().getItems().stream().filter(item -> item.getId()==id).findFirst();
                     if(!optItem.isPresent()) {
                         sender.sendMessage(Lang.PRISONTECH.f("&cError: Unable to find a crafting recipe with that id."));
+                        return false;
                     }
 
                     ItemStack hand = player.getInventory().getItemInMainHand();
@@ -66,12 +67,15 @@ public class PCraftingCmd implements CommandExecutor {
 
                     optItem.get().getMaterials().add(hand);
                     PCrafting.getInstance().getConfig().set(id + ".materials", optItem.get().getMaterials().stream().map(PQuests::serializeItem).collect(Collectors.toList()));
+                    player.sendMessage(Lang.PRISONTECH.f("&aYou have added the item in your hand to the specific recipe."));
                     try {
                         PCrafting.getInstance().getConfig().save(new File(PQuests.getInstance().getDataFolder(), "crafting.yml"));
                     } catch (IOException e) {
                         e.printStackTrace();
                         return false;
                     }
+                    PCrafting.getInstance().getItems().clear();
+                    PCrafting.getInstance().loadConfig();
 
                     break;
                 }

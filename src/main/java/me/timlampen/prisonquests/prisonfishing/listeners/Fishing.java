@@ -25,8 +25,6 @@ public class Fishing implements Listener {
         Player player = event.getPlayer();
         PlayerFishEvent.State state = event.getState();
         Optional<PFishingRod> rod = PFishing.getInstance().getPFishingRod(player.getInventory().getItemInMainHand());
-        if(PFishing.getInstance().getLastCast().containsKey(player.getUniqueId()))
-            PFishing.getInstance().getLastCast().remove(player.getUniqueId());
 
         if(!rod.isPresent())
             return;

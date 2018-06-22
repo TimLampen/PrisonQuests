@@ -58,11 +58,11 @@ public class PCrafting extends Module {
         return instance;
     }
 
-    private void loadConfig(){
-        File file = new File(PQuests.getInstance().getDataFolder(), "fishing.yml");
+    public void loadConfig(){
+        File file = new File(PQuests.getInstance().getDataFolder(), "crafting.yml");
         if (!file.exists()) {
             file.getParentFile().mkdirs();
-            PQuests.getInstance().saveResource("fishing.yml", false);
+            PQuests.getInstance().saveResource("crafting.yml", false);
         }
 
         config = new YamlConfiguration();
