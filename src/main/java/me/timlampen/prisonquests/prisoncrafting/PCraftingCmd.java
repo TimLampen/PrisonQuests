@@ -2,9 +2,7 @@ package me.timlampen.prisonquests.prisoncrafting;
 
 import me.timlampen.prisonquests.Lang;
 import me.timlampen.prisonquests.PQuests;
-import me.timlampen.prisonquests.prisonfishing.PFishing;
-import me.timlampen.prisonquests.prisonfishing.PFishingRod;
-import org.bukkit.Bukkit;
+import me.timlampen.prisonquests.menu.PMenus;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -81,7 +79,7 @@ public class PCraftingCmd implements CommandExecutor {
                 }
 
                 case "openinv": {
-                    PCrafting.getInstance().getCraftingInv().show(player);
+                    PMenus.getInstance().showMenu(player, "crafting_items");
                     break;
                 }
             }

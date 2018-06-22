@@ -5,17 +5,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 /**
  * Created by Timothy Lampen on 6/20/2018.
  */
 public class PFishingRod {
-    private String name;
-    private List<String> lore;
-    private int time, id;
-    private HashMap<ItemStack, Integer> chances;
+    private final String name;
+    private final List<String> lore;
+    private final int time, id;
+    private final HashMap<ItemStack, Integer> chances;
 
     public PFishingRod(int id, String name, List<String> lore, int time, HashMap<ItemStack, Integer> chances){
         this.name = name;

@@ -1,13 +1,9 @@
 package me.timlampen.prisonquests.prisoncrafting;
 
-import me.timlampen.prisonquests.Lang;
 import me.timlampen.prisonquests.Module;
 import me.timlampen.prisonquests.PQuests;
-import me.timlampen.prisonquests.prisoncrafting.listeners.Click;
-import me.timlampen.prisonquests.prisonfishing.PFishingRod;
-import org.bukkit.Bukkit;
+import me.timlampen.prisonquests.menu.PMenus;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,7 +12,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -26,7 +25,6 @@ public class PCrafting extends Module {
 
     private static PCrafting instance;
     private FileConfiguration config;
-    private PCraftingInv craftingInv;
     private Set<PCraftingItem> items = new HashSet<>();
 
     @Override
@@ -34,20 +32,15 @@ public class PCrafting extends Module {
         instance = this;
         this.config = PQuests.getConfig("crafting.yml");
         loadConfig();
-        Bukkit.getPluginManager().registerEvents(new Click(), PQuests.getInstance());
         PQuests.getInstance().getCommand("pcrafting").setExecutor(new PCraftingCmd());
 
-        this.craftingInv = new PCraftingInv("&6Custom Crafting Recipes");
+        PMenus.getInstance().addMenu("crafting_items", "&6Custom Crafting Recipes", -1);
 
     }
 
     @Override
     public void onDisable() {
 
-    }
-
-    public PCraftingInv getCraftingInv() {
-        return craftingInv;
     }
 
     public Set<PCraftingItem> getItems() {

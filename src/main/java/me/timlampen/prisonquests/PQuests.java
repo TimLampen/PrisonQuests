@@ -1,6 +1,8 @@
 package me.timlampen.prisonquests;
 
+import me.timlampen.prisonquests.menu.PMenus;
 import me.timlampen.prisonquests.prisoncrafting.PCrafting;
+import me.timlampen.prisonquests.prisonenchanting.PEnchanting;
 import me.timlampen.prisonquests.prisonfishing.PFishing;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -12,8 +14,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Timothy Lampen on 6/20/2018.
@@ -21,7 +23,7 @@ import java.util.Set;
 public class PQuests extends JavaPlugin {
 
     private static PQuests instance;
-    private Set<Module> modules = new HashSet<>();
+    private List<Module> modules = new ArrayList<>();
 
     public static PQuests getInstance() {
         return instance;
@@ -30,8 +32,10 @@ public class PQuests extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        modules.add(new PMenus());
         modules.add(new PFishing());
         modules.add(new PCrafting());
+        modules.add(new PEnchanting());
 
         modules.forEach(Module::onEnable);
     }

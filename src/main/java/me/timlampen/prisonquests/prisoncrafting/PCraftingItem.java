@@ -2,7 +2,6 @@ package me.timlampen.prisonquests.prisoncrafting;
 
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -11,10 +10,10 @@ import java.util.Set;
  */
 public class PCraftingItem {
 
-    private Set<ItemStack> materials;
-    private ItemStack product, display;
-    private int id;
-    private List<String> commands;
+    private final Set<ItemStack> materials;
+    private final ItemStack product, display;
+    private final int id;
+    private final List<String> commands;
 
     public PCraftingItem(int id, ItemStack product, ItemStack display, Set<ItemStack> materials, List<String> commands){
         this.materials = materials;
