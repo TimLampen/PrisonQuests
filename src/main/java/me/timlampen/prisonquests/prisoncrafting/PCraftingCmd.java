@@ -57,7 +57,7 @@ public class PCraftingCmd implements CommandExecutor {
                         return false;
                     }
 
-                    ItemStack hand = player.getInventory().getItemInMainHand();
+                    ItemStack hand = player.getItemInHand();
                     if(hand==null || hand.getType()==Material.AIR) {
                         player.sendMessage(Lang.PRISONTECH.f("&cError: You cannot add air as an ingredient"));
                         return false;

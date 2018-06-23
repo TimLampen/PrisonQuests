@@ -4,6 +4,6 @@
   - "hi"
   - "&atest"
   time: 10
-  chance:
-  - "FISH,1,10"
+  chances:
+  - "RAW_FISH,1,10"
   - "STONE:2,1,90"

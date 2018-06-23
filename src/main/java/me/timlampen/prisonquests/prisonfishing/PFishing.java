@@ -44,7 +44,7 @@ public class PFishing extends Module {
                     Player player = Bukkit.getPlayer(entry.getKey());
                     if(player==null)
                         iter.remove();
-                    ItemStack is = player.getInventory().getItemInMainHand();
+                    ItemStack is = player.getItemInHand();
                     Optional<PFishingRod> rod = getPFishingRod(is);
                     if(rod.isPresent()) {
                         if(lastCast.containsKey(player.getUniqueId()) && System.currentTimeMillis()-lastCast.get(player.getUniqueId()) >= rod.get().getTime()*1000) {
@@ -86,7 +86,6 @@ public class PFishing extends Module {
         for(String s : config.getConfigurationSection("").getKeys(false)) {
             int id = Integer.parseInt(s);
             String name = ChatColor.translateAlternateColorCodes('&', config.getString(s + ".name"));
-
             List<String> lore = new ArrayList<>();
             config.getStringList(s + ".lore").forEach(sLore -> lore.add(ChatColor.translateAlternateColorCodes('&', sLore)));
 
@@ -102,7 +101,7 @@ public class PFishing extends Module {
             }
 
             if(totalChance!=100){
-                Bukkit.getConsoleSender().sendMessage(Lang.PRISONTECH.f("&cUnable to load fishing rod: " + id + " as total chance % != 100"));
+                Bukkit.getConsoleSender().sendMessage(Lang.PRISONTECH.f("&cUnable to load fishing rod: " + id + " as total chance % == " + totalChance));
                 continue;
             }
 

@@ -24,7 +24,7 @@ public class Fishing implements Listener {
     public void onFish(PlayerFishEvent event){
         Player player = event.getPlayer();
         PlayerFishEvent.State state = event.getState();
-        Optional<PFishingRod> rod = PFishing.getInstance().getPFishingRod(player.getInventory().getItemInMainHand());
+        Optional<PFishingRod> rod = PFishing.getInstance().getPFishingRod(player.getItemInHand());
 
         if(!rod.isPresent())
             return;

@@ -18,7 +18,7 @@ public class Interact implements Listener {
         Player player = event.getPlayer();
         if(!event.getAction().toString().contains("RIGHT"))
             return;
-        if(!PFishing.getInstance().getPFishingRod(player.getInventory().getItemInMainHand()).isPresent())
+        if(!PFishing.getInstance().getPFishingRod(player.getItemInHand()).isPresent())
             return;
         if(!PFishing.getInstance().getLastCast().containsKey(player.getUniqueId()))
             return;

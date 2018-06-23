@@ -1,4 +1,4 @@
-'10'
+'10':
   compound-enchants:
   - 1,80
   - 2,20
@@ -11,7 +11,7 @@
     - DURABILITY,3,20
     - DAMAGE_UNDEAD,5,90
     #doesnt have to add up to 100%
-'20'
+'20':
   compound-enchants:
   - 2,80
   - 3,20
@@ -22,7 +22,7 @@
     - DAMAGE_ALL,3,50
     - DURABILITY,3,20
     - DAMAGE_UNDEAD,5,90
-'30'
+'30':
   compound-enchants:
   - 3,80
   - 4,20

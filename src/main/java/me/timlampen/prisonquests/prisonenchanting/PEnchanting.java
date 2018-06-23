@@ -94,8 +94,7 @@ public class PEnchanting extends Module {
         }
 
         if(enchants.size()!=3){
-            Bukkit.getConsoleSender().sendMessage(Lang.PRISONTECH.f("&cError: There are not three enchant sections, disabling the plugin."));
-            Bukkit.getPluginManager().disablePlugin(PQuests.getInstance());
+            Bukkit.getConsoleSender().sendMessage(Lang.PRISONTECH.f("&cError: There are not three enchant sections!"));
         }
     }
 
