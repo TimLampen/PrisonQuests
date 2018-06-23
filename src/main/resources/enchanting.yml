@@ -1,0 +1,35 @@
+'10'
+  compound-enchants:
+  - 1,80
+  - 2,20
+  #must add up to 100%
+  items:
+    DIAMOND_SWORD:
+    - DAMAGE_ALL,1,20
+    - DAMAGE_ALL,2,10
+    - DAMAGE_ALL,3,50
+    - DURABILITY,3,20
+    - DAMAGE_UNDEAD,5,90
+    #doesnt have to add up to 100%
+'20'
+  compound-enchants:
+  - 2,80
+  - 3,20
+  items:
+    DIAMOND_SWORD:
+    - DAMAGE_ALL,1,20
+    - DAMAGE_ALL,2,10
+    - DAMAGE_ALL,3,50
+    - DURABILITY,3,20
+    - DAMAGE_UNDEAD,5,90
+'30'
+  compound-enchants:
+  - 3,80
+  - 4,20
+  items:
+    DIAMOND_SWORD:
+    - DAMAGE_ALL,1,20
+    - DAMAGE_ALL,2,10
+    - DAMAGE_ALL,3,50
+    - DURABILITY,3,20
+    - DAMAGE_UNDEAD,5,90
