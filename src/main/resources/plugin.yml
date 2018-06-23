@@ -1,6 +1,6 @@
-main: me.timlampen.prisonquests.PQuests
+main: me.timlampen.pqcore.PQCore
 version: 1.0
-name: PQuests
+name: PQCore
 depend: [Vault]
 author: TimLampen
 commands:
