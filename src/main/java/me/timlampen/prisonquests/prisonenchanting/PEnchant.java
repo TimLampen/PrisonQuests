@@ -3,6 +3,7 @@ package me.timlampen.prisonquests.prisonenchanting;
 import org.bukkit.Material;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by Timothy Lampen on 6/22/2018.
@@ -10,14 +11,19 @@ import java.util.HashMap;
 public class PEnchant {
 
     private final HashMap<Integer, Integer> compoundChances;
-    private final HashMap<Material, MaterialEnchantChance> matChances;
-    private final int level;
+    private final HashMap<Material, Set<MaterialEnchantChance>> matChances;
+    private final int level, rerollCost;
 
-    public PEnchant(int level, HashMap<Integer, Integer> compoundChances, HashMap<Material, MaterialEnchantChance> matChances) {
+    public PEnchant(int level, int rerollCost, HashMap<Integer, Integer> compoundChances, HashMap<Material, Set<MaterialEnchantChance>> matChances) {
         this.level = level;
+        this.rerollCost = rerollCost;
         this.compoundChances = compoundChances;
         this.matChances = matChances;
 
+    }
+
+    public int getRerollCost() {
+        return rerollCost;
     }
 
     public int getLevel() {
@@ -28,7 +34,7 @@ public class PEnchant {
         return compoundChances;
     }
 
-    public HashMap<Material, MaterialEnchantChance> getMatChances() {
+    public HashMap<Material, Set<MaterialEnchantChance>> getMatChances() {
         return matChances;
     }
 }

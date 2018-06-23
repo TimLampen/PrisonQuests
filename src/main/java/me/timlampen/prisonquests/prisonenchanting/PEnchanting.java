@@ -13,10 +13,7 @@ import org.bukkit.enchantments.Enchantment;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Timothy Lampen on 6/22/2018.
@@ -34,7 +31,7 @@ public class PEnchanting extends Module {
         this.config = PQuests.getConfig("enchanting.yml");
         loadConfig();
         PMenus.getInstance().addMenu("enchant_1","&5Pick an Enchant Level", 3);
-        PMenus.getInstance().addMenu("enchant_2","&5Pick an Enchant Level", 3);
+        PMenus.getInstance().addMenu("enchant_2","&5The Enchantment Lottery", 3);
     }
 
     @Override
@@ -78,19 +75,24 @@ public class PEnchanting extends Module {
                 compoundEnchants.put(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
             });
 
-            HashMap<Material, MaterialEnchantChance> matChances = new HashMap<>();
+            HashMap<Material, Set<MaterialEnchantChance>> matChances = new HashMap<>();
+            PQuests.error("for enchantment level " + level);
             for(String sMat : config.getConfigurationSection(s + ".items").getKeys(false)){
+                PQuests.error("now loading enchants for " + sMat);
+                Set<MaterialEnchantChance> chances = new HashSet<>();
                 Material mat = Material.getMaterial(sMat);
                 config.getStringList(s + ".items." + sMat).forEach(sMEC -> {
                     String[] split = sMEC.split(",");
                     Enchantment ench = Enchantment.getByName(split[0]);
                     int enchLevel = Integer.parseInt(split[1]);
                     int enchChance = Integer.parseInt(split[2]);
-                    matChances.put(mat, new MaterialEnchantChance(ench, enchLevel, enchChance));
+                    PQuests.error("added " + ench.getName() + " from level " + enchLevel + " with chance " + enchChance + " to " + sMat);
+                    chances.add(new MaterialEnchantChance(ench, enchLevel, enchChance));
                 });
+                matChances.put(mat, chances);
             }
-
-            enchants.add(new PEnchant(level, compoundEnchants, matChances));
+            PQuests.error("added enchants for level " + level + " with " + matChances.size() + " size");
+            enchants.add(new PEnchant(level, config.getInt(s + ".cost"), compoundEnchants, matChances));
         }
 
         if(enchants.size()!=3){

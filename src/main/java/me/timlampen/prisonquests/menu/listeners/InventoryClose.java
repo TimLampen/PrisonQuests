@@ -28,6 +28,6 @@ public class InventoryClose implements Listener {
         if(!optMenu.isPresent())
             return;
 
-        Bukkit.getPluginManager().callEvent(new MenuCloseEvent(player, optMenu.get()));
+        Bukkit.getPluginManager().callEvent(new MenuCloseEvent(player, event, optMenu.get()));
     }
 }

@@ -23,7 +23,7 @@ public class MenuOpen implements Listener {
     public void onMenuOpen(MenuOpenEvent event) {
         Player player = event.getPlayer();
         Menu m = event.getMenu();
-        Inventory inv = Bukkit.createInventory(null, m.getRows(), ChatColor.translateAlternateColorCodes('&' ,m.getTitle()));
+        Inventory inv = null;
 
 
 
@@ -41,13 +41,33 @@ public class MenuOpen implements Listener {
             }
 
             case "enchant_1": {
+                inv = Bukkit.createInventory(null, m.getRows()*9, ChatColor.translateAlternateColorCodes('&',m.getTitle()));
                 for(int i = 0; i < 27; i++)
                     inv.setItem(i, new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)7));
                 inv.setItem(11, generateSelector(PEnchanting.getInstance().getEnchants().get(0).getLevel(), (short)5));
                 inv.setItem(13, generateSelector(PEnchanting.getInstance().getEnchants().get(1).getLevel(), (short)10));
                 inv.setItem(15, generateSelector(PEnchanting.getInstance().getEnchants().get(2).getLevel(), (short)14));
                 break;
-        }
+            }
+            case "enchant_2": {
+                inv = Bukkit.createInventory(null, m.getRows()*9, ChatColor.translateAlternateColorCodes('&',m.getTitle()));
+                for(int i = 0; i < 27; i++) {
+                    if(i==10)
+                        continue;
+                    inv.setItem(i, new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7));
+                }
+
+                ItemStack nullItem = new ItemStack(Material.WOOL, 1, (short)14);
+                ItemMeta im = nullItem.getItemMeta();
+                im.setDisplayName(ChatColor.RED + "" + ChatColor.BOLD + "Place Enchantable Item In Empty Slot");
+                nullItem.setItemMeta(im);
+
+                int[] is = new int[]{1,9,11,19};
+                for(int i : is){
+                    inv.setItem(i, nullItem);
+                }
+                break;
+            }
         }
 
 

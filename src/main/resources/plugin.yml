@@ -1,6 +1,7 @@
 main: me.timlampen.prisonquests.PQuests
 version: 1.0
 name: PQuests
+depend: [Vault]
 author: TimLampen
 commands:
   pfishingrod:

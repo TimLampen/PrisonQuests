@@ -4,12 +4,14 @@ import me.timlampen.prisonquests.menu.PMenus;
 import me.timlampen.prisonquests.prisoncrafting.PCrafting;
 import me.timlampen.prisonquests.prisonenchanting.PEnchanting;
 import me.timlampen.prisonquests.prisonfishing.PFishing;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -24,6 +26,8 @@ public class PQuests extends JavaPlugin {
 
     private static PQuests instance;
     private List<Module> modules = new ArrayList<>();
+    private static Economy eco = null;
+
 
     public static PQuests getInstance() {
         return instance;
@@ -38,6 +42,8 @@ public class PQuests extends JavaPlugin {
         modules.add(new PEnchanting());
 
         modules.forEach(Module::onEnable);
+
+        setupEconomy();
     }
 
     public void onDisable() {
@@ -62,6 +68,26 @@ public class PQuests extends JavaPlugin {
         }
 
         return config;
+    }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        eco = rsp.getProvider();
+        return eco != null;
+    }
+
+    public static void error(String msg){
+        Bukkit.getConsoleSender().sendMessage(Lang.PRISONTECH.f("&c" + msg));
+    }
+
+    public static Economy getEco() {
+        return eco;
     }
 
     /*

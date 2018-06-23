@@ -26,6 +26,7 @@ public class InventoryClick implements Listener {
         if(!optMenu.isPresent())
             return;
 
+
         Bukkit.getPluginManager().callEvent(new MenuClickEvent(event, optMenu.get()));
     }
 }
