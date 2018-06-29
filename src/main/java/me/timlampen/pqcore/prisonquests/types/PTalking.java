@@ -11,8 +11,9 @@ import java.util.Set;
 public class PTalking extends PQuestType {
 
     private Set<String> npcNames = new HashSet<>();
-    public PTalking() {
+    public PTalking(Set<String> names) {
         super(QuestType.TALKING);
+        this.npcNames = names;
     }
 
     public Set<String> getNpcNames() {

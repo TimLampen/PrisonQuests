@@ -1,5 +1,6 @@
 package me.timlampen.pqcore;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import me.timlampen.pqcore.menu.PMenus;
 import me.timlampen.pqcore.prisoncrafting.PCrafting;
 import me.timlampen.pqcore.prisonenchanting.PEnchanting;
@@ -11,6 +12,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -48,6 +50,17 @@ public class PQCore extends JavaPlugin {
 
     public void onDisable() {
         modules.forEach(Module::onDisable);
+    }
+
+    public WorldGuardPlugin getWorldGuard() {
+        Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+
+        // WorldGuard may not be loaded
+        if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+            return null; // Maybe you want throw an exception instead
+        }
+
+        return (WorldGuardPlugin) plugin;
     }
 
     public static FileConfiguration getConfig(String name) {

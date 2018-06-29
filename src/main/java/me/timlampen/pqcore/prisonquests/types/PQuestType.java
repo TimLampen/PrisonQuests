@@ -15,6 +15,7 @@ public abstract class PQuestType {
 
     public abstract boolean isComplete(Player player);
 
-
-
+    public QuestType getType() {
+        return type;
+    }
 }

@@ -1,0 +1,22 @@
+'1':
+  permission: "quests.test1"
+  completion-commands:
+  - "give %player% diamond 1"
+  - "broadcast Hey %player%, you're cool."
+  npc-giver-name: "Test1"
+  quest-type: "MINING"
+  region: "miningarea"
+  details: "&aTo complete this quest you must mine two andesite and 64 iron ore."
+  data:
+  - "STONE:2,2"
+  - "IRON_ORE,64"
+'2':
+  permission: "quests.test2"
+  completion-commands:
+  - "tell %player% psst"
+  npc-giver-name: "Test2"
+  quest-type: "ENCHANTING"
+  details: "&bTo complete this quest you must have items in your inventory with the enchants unbreaking and sharpness."
+  data:
+  - "DURABILITY,3"
+  - "DAMAGE_ALL,5"

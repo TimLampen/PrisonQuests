@@ -28,7 +28,7 @@ public class PFishing extends Module {
     @Override
     public void onEnable() {
         instance = this;
-        this.config = PQCore.getInstance().getConfig("fishing.yml");
+        this.config = PQCore.getConfig("fishing.yml");
         loadConfig();
         Bukkit.getPluginManager().registerEvents(new Fishing(), PQCore.getInstance());
         Bukkit.getPluginManager().registerEvents(new Interact(), PQCore.getInstance());
@@ -76,10 +76,12 @@ public class PFishing extends Module {
         for(Map.Entry<ItemStack, Integer> entry : drops.entrySet()) {
             if(currentNum + entry.getValue() >= ran) {
                 player.getWorld().dropItemNaturally(player.getLocation(), entry.getKey());
+                Bukkit.getPluginManager().callEvent(new PFishEvent(player, rod, entry.getKey()));
                 break;
             }
             currentNum += entry.getValue();
         }
+
     }
 
     private void loadConfig(){

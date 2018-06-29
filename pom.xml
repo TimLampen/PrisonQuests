@@ -25,6 +25,10 @@
             <id>inventive-repo</id>
             <url>https://repo.inventivetalent.org/content/repositories/releases</url>
         </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>http://maven.sk89q.com/repo/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -47,11 +51,17 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>worldguard</artifactId>
+            <version>6.1</version>
+        </dependency>
+        <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
             <version>1.6</version>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
     <build>

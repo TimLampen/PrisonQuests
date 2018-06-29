@@ -8,13 +8,16 @@ import java.util.HashMap;
 
 /**
  * Created by Timothy Lampen on 6/23/2018.
+ * each player will have local copy
+ * Can be partially finished
  */
 public class PKilling extends PQuestType {
 
-    private HashMap<EntityType, Integer> mobs = new HashMap<>();
+    private HashMap<EntityType, Integer> mobs;
 
-    public PKilling() {
+    public PKilling(HashMap<EntityType, Integer> mobs) {
         super(QuestType.KILLING);
+        this.mobs = mobs;
     }
 
     @Override

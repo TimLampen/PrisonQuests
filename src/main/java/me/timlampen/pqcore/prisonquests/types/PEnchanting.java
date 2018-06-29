@@ -9,13 +9,16 @@ import java.util.Map;
 
 /**
  * Created by Timothy Lampen on 6/23/2018.
+ * each player will have local copy
+ * Cannot be partially finished
  */
 public class PEnchanting extends PQuestType {
 
-    private HashMap<Enchantment, Integer> enchants = new HashMap<>();
+    private HashMap<Enchantment, Integer> enchants;
 
-    public PEnchanting() {
+    public PEnchanting(HashMap<Enchantment, Integer> enchants) {
         super(QuestType.ENCHANTING);
+        this.enchants = enchants;
     }
 
     @Override

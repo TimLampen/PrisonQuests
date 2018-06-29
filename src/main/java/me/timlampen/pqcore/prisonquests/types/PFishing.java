@@ -7,12 +7,15 @@ import java.util.HashMap;
 
 /**
  * Created by Timothy Lampen on 6/23/2018.
+ * each player has local copy
+ * Can be partially finished
  */
 public class PFishing extends PQuestType {
-    private HashMap<ItemStack, Integer> drops = new HashMap<>();
+    private HashMap<ItemStack, Integer> drops;
 
-    public PFishing() {
+    public PFishing(HashMap<ItemStack, Integer> drops) {
         super(QuestType.FISHING);
+        this.drops = drops;
     }
 
     public HashMap<ItemStack, Integer> getDrops() {
