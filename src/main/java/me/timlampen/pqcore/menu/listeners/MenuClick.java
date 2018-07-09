@@ -100,28 +100,23 @@ public class MenuClick implements Listener {
                     }
                     case 12: {
                         ItemStack is = click.getCurrentItem();
-                        PQCore.error("1");
                         if(is==null || is.getType()!=Material.WATCH)
                             return;
-                        PQCore.error("2");
                         ItemStack beingEnchanted = click.getInventory().getItem(10);
                         if(beingEnchanted==null || !pEnchant.getMatChances().containsKey(beingEnchanted.getType())) {
                             PMenus.getInstance().showMenu(player, "enchant_1");//reset the inventory
                             return;
                         }
-                        PQCore.error("3");
                         if(!PQCore.getEco().has(player, pEnchant.getRerollCost())){
                             player.sendMessage(Lang.PRISONTECH.f("&cError: You do not have enough money to reroll!"));
                             return;
                         }
-                        PQCore.error("4");
                         PQCore.getEco().withdrawPlayer(player, pEnchant.getRerollCost());
 
                         new BukkitRunnable() {
                             @Override
                             public void run() {
                                 for(int i= 14; i<17; i++){
-                                    PQCore.error("i=" + i);
                                     int ran = ThreadLocalRandom.current().nextInt(1, 101);
                                     int currentNum = 0;
                                     int numberOfEnchants = -1;
@@ -134,7 +129,6 @@ public class MenuClick implements Listener {
                                         currentNum += entry.getValue();
                                     }
 
-                                    PQCore.error("number of enchants is " + numberOfEnchants);
 
                                     List<MaterialEnchantChance> mECs = new ArrayList<>(pEnchant.getMatChances().get(beingEnchanted.getType()));
                                     Collections.shuffle(mECs);
@@ -159,7 +153,6 @@ public class MenuClick implements Listener {
                                     im.setLore(pendingEnchants.stream().map(mEC -> ChatColor.GREEN + mEC.getEnchantment().getName() + " " + mEC.getLevel()).collect(Collectors.toList()));
                                     finalList.setItemMeta(im);
 
-                                    PQCore.error(finalList.getItemMeta().getLore() + " final list");
 
                                     final int finalI = i;
                                     new BukkitRunnable() {
@@ -167,7 +160,6 @@ public class MenuClick implements Listener {
                                         public void run() {
                                             click.getInventory().setItem(finalI, finalList);
                                             player.updateInventory();
-                                            PQCore.error("updated");
                                         }
                                     }.runTaskLater(PQCore.getInstance(), 2); }
                             }

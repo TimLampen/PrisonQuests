@@ -1,7 +1,6 @@
 package me.timlampen.pqcore.prisonfishing;
 
 import me.timlampen.pqcore.Lang;
-import me.timlampen.pqcore.menu.PMenus;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,9 +30,6 @@ public class PFishingRodCmd implements CommandExecutor {
 
 
             switch (args[0].toLowerCase()) {
-                case "aa": {
-                    PMenus.getInstance().showMenu((Player)sender, "enchant_1");
-                }
                 case "give": {
                     if(args.length!=3){
                         sender.sendMessage(Lang.SYNTAX_ERROR.f(""));

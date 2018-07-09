@@ -6,10 +6,9 @@
   npc-giver-name: "Test1"
   quest-type: "MINING"
   region: "miningarea"
-  details: "&aTo complete this quest you must mine two andesite and 64 iron ore."
+  details: "&aTo complete this quest you must mine 2 stone."
   data:
-  - "STONE:2,2"
-  - "IRON_ORE,64"
+  - "STONE,2"
 '2':
   permission: "quests.test2"
   completion-commands:

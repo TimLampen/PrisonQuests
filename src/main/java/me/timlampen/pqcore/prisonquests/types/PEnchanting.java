@@ -34,4 +34,21 @@ public class PEnchanting extends PQuestType {
         }
         return copyEnchants.size()==0;
     }
+
+    public HashMap<Enchantment, Integer> remainingEnchants(Player player) {
+        HashMap<Enchantment, Integer> copyEnchants = new HashMap<>(enchants);
+        for(ItemStack is : player.getInventory().getContents()) {
+            if(is==null || is.getEnchantments().size()==0)
+                continue;
+            for(Map.Entry<Enchantment, Integer> entry : is.getEnchantments().entrySet()) {
+                if(copyEnchants.containsKey(entry.getKey()) && entry.getValue()==copyEnchants.get(entry.getKey()))
+                    copyEnchants.remove(entry.getKey());
+            }
+        }
+        return copyEnchants;
+    }
+
+    public HashMap<Enchantment, Integer> getEnchants() {
+        return enchants;
+    }
 }

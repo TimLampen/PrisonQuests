@@ -1,8 +1,10 @@
 main: me.timlampen.pqcore.PQCore
 version: 1.0
 name: PQCore
-depend: [Vault]
+depend: [Vault, WorldGuard, Citizens]
 author: TimLampen
 commands:
   pfishingrod:
   pcrafting:
+  qeta:
+  pqenchant:

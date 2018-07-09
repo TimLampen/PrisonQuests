@@ -35,11 +35,17 @@ public class Quest {
         this.region = region;
     }
 
+    public Quest copy(){
+        return new Quest(id, type, permission, completionCommands, npcGiverName, details, region);
+    }
+
     public String getDetails() {
         return details;
     }
 
     public boolean playerIsInCorrectRegion(Player player){
+        PQCore.error(this.region);
+        PQCore.error(PQCore.getInstance().getWorldGuard().getRegionManager(player.getWorld()).getApplicableRegions(player.getLocation()).getRegions().toString());
         if(this.region == null || this.region.equals(""))
             return true;
         return PQCore.getInstance().getWorldGuard().getRegionManager(player.getWorld()).getApplicableRegions(player.getLocation()).getRegions().stream().anyMatch(region1 -> region1.getId().equals(this.region));

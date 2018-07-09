@@ -5,6 +5,7 @@ import me.timlampen.pqcore.menu.PMenus;
 import me.timlampen.pqcore.prisoncrafting.PCrafting;
 import me.timlampen.pqcore.prisonenchanting.PEnchanting;
 import me.timlampen.pqcore.prisonfishing.PFishing;
+import me.timlampen.pqcore.prisonquests.PQuests;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -42,10 +43,15 @@ public class PQCore extends JavaPlugin {
         modules.add(new PFishing());
         modules.add(new PCrafting());
         modules.add(new PEnchanting());
+        modules.add(new PQuests());
 
         modules.forEach(Module::onEnable);
 
         setupEconomy();
+    }
+
+    public static void log(String s ) {
+        Bukkit.getConsoleSender().sendMessage(Lang.PRISONTECH.f("&a" + s));
     }
 
     public void onDisable() {
@@ -115,6 +121,12 @@ public class PQCore extends JavaPlugin {
             is = new ItemStack(Material.getMaterial(split[0]), Integer.parseInt(split[1]));
 
         return is;
+    }
+
+    public static String serializeItem(ItemStack is, int amt) {
+        ItemStack copy = is.clone();
+        copy.setAmount(amt);
+        return serializeItem(copy);
     }
     
     public static String serializeItem(ItemStack is) {

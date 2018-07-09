@@ -3,21 +3,18 @@ package me.timlampen.pqcore.prisonquests.listeners;
 import me.timlampen.pqcore.Lang;
 import me.timlampen.pqcore.prisonquests.PQUser;
 import me.timlampen.pqcore.prisonquests.PQuests;
-import me.timlampen.pqcore.prisonquests.types.PMining;
 import me.timlampen.pqcore.prisonquests.types.PTalking;
 import me.timlampen.pqcore.prisonquests.types.QuestType;
-import net.citizensnpcs.api.event.NPCClickEvent;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.npc.NPC;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -56,10 +53,23 @@ public class EntityInteract implements Listener {
             if(!optUser.isPresent())
                 return;
 
-            player.sendMessage(Lang.PRISONTECH.f("&9" + npc.getName() + "&6would like you give you a quest."));
+            if(!player.hasPermission(q.getPermission())){
+                player.sendMessage(Lang.PRISONTECH.f("&cError: You do not have permission to start this quest."));
+                return;
+            }
+
+            player.sendMessage(Lang.PRISONTECH.f("&9" + npc.getName() + " &6would like you give you a quest."));
             player.sendMessage(q.getDetails());
+
             TextComponent msg = new TextComponent("Accept Quest");
             msg.setColor(optUser.get().getActiveQuests().stream().anyMatch(q2 -> q.getId()==q2.getId()) || optUser.get().getCompletedQuests().contains(q.getId()) ? ChatColor.RED : ChatColor.GREEN);
+            msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/qeta aavc " + q.getId()));
+            player.spigot().sendMessage(msg);
+
+            msg = new TextComponent("Turn in Quest");
+            msg.setColor(optUser.get().getActiveQuests().stream().anyMatch(q2 -> q.getId()==q2.getId() && q2.getType().isComplete(player)) ? ChatColor.GREEN : ChatColor.GRAY);
+            msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/qeta vvfv " + q.getId()));
+            player.spigot().sendMessage(msg);
 
         });
     }

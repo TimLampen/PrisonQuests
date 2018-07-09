@@ -32,6 +32,7 @@ public class PEnchanting extends Module {
         loadConfig();
         PMenus.getInstance().addMenu("enchant_1","&5Pick an Enchant Level", 3);
         PMenus.getInstance().addMenu("enchant_2","&5The Enchantment Lottery", 3);
+        PQCore.getInstance().getCommand("pqenchant").setExecutor(new PQEnchantCmd());
     }
 
     @Override
@@ -76,9 +77,7 @@ public class PEnchanting extends Module {
             });
 
             HashMap<Material, Set<MaterialEnchantChance>> matChances = new HashMap<>();
-            PQCore.error("for enchantment level " + level);
             for(String sMat : config.getConfigurationSection(s + ".items").getKeys(false)){
-                PQCore.error("now loading enchants for " + sMat);
                 Set<MaterialEnchantChance> chances = new HashSet<>();
                 Material mat = Material.getMaterial(sMat);
                 config.getStringList(s + ".items." + sMat).forEach(sMEC -> {
@@ -86,12 +85,11 @@ public class PEnchanting extends Module {
                     Enchantment ench = Enchantment.getByName(split[0]);
                     int enchLevel = Integer.parseInt(split[1]);
                     int enchChance = Integer.parseInt(split[2]);
-                    PQCore.error("added " + ench.getName() + " from level " + enchLevel + " with chance " + enchChance + " to " + sMat);
                     chances.add(new MaterialEnchantChance(ench, enchLevel, enchChance));
                 });
                 matChances.put(mat, chances);
             }
-            PQCore.error("added enchants for level " + level + " with " + matChances.size() + " size");
+            PQCore.log("added enchants for level " + level + " with " + matChances.size() + " size");
             enchants.add(new PEnchant(level, config.getInt(s + ".cost"), compoundEnchants, matChances));
         }
 
